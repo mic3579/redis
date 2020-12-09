@@ -1,19 +1,22 @@
-name: C/C++ CI
+name: CI_with_coderrect
 
-on:
-  push:
-    branches: [ unstable ]
-  pull_request:
-    branches: [ unstable ]
+on: [push, pull_request]
 
 jobs:
-  build:
 
+  coderrect-ubuntu-latest:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: distclean
-      run: make distclean
-    - name: make
-      run: make
+
+    - name: Coderrect Scan
+      uses: coderrect-inc/coderrect-github-action@v0.5
+      with:
+        cleanCommand: "make distclean"
+        buildCommand: "make REDIS_CFLAGS='-Werror' BUILD_TLS=yes"
+        options: "-analyzeBinaries=redis-server,redis-cli"
+    
+    - name: build
+      # Fail build if there are warnings
+      # build with TLS just for compilation coverage
+      run: make REDIS_CFLAGS='-Werror' BUILD_TLS=yes
