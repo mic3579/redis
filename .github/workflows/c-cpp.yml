@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
+    - name: build
+      # Fail build if there are warnings
+      # build with TLS just for compilation coverage
+      run: make REDIS_CFLAGS='-Werror' BUILD_TLS=yes
 
     - name: Coderrect Scan
       uses: coderrect-inc/coderrect-github-action@v0.5
@@ -16,7 +21,4 @@ jobs:
         buildCommand: "make REDIS_CFLAGS='-Werror' BUILD_TLS=yes"
         options: "-analyzeBinaries=redis-server,redis-cli"
     
-    - name: build
-      # Fail build if there are warnings
-      # build with TLS just for compilation coverage
-      run: make REDIS_CFLAGS='-Werror' BUILD_TLS=yes
+    
