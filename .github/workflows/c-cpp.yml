@@ -19,6 +19,6 @@ jobs:
       with:
         cleanCommand: "make distclean"
         buildCommand: "make REDIS_CFLAGS='-Werror' BUILD_TLS=yes"
-        options: "-analyzeBinaries=redis-server,redis-cli"
+        options: "-analyzeBinaries=redis-server"
     
     
