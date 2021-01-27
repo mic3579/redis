@@ -15,7 +15,7 @@ jobs:
       run: make REDIS_CFLAGS='-Werror' BUILD_TLS=yes
 
     - name: Coderrect Scan
-      uses: coderrect-inc/coderrect-github-action@main
+      uses: coderrect-inc/coderrect-github-action@v1.2
       with:
         cleanCommand: "make distclean"
         buildCommand: "make REDIS_CFLAGS='-Werror' BUILD_TLS=yes"
